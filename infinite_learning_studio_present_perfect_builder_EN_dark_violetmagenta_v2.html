@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Infinite Learning Studio — Present Perfect Builder (3 Stages × 20) [EN]</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700;900&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#8b5cf6;      /* violet */
+  --pink2:#ec4899;     /* magenta pop */
+  --bg:#0a0a0f;
+  --card:#111122;
+  --ink:#f9fafb;
+  --muted:#a1a1aa;
+  --line:rgba(139,92,246,.28);
+  --shadow:0 16px 40px rgba(0,0,0,.55);
+  --ok:#22c55e;
+  --bad:#ef4444;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:"Noto Sans Thai","Rubik",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+.header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(10,10,15,.94);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 10px 24px rgba(0,0,0,.45);
+}
+.banner{
+  max-width:1100px;margin:auto;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 12px 10px;
+}
+.logo{
+  width:44px;height:44px;border-radius:14px;
+  display:grid;place-items:center;
+  background:conic-gradient(from 0deg,var(--pink),rgba(255,255,255,.12),var(--pink2),var(--pink));
+  color:#fff;font-weight:900;
+  box-shadow:0 0 16px rgba(236,72,153,.22);
+}
+.brand{font-weight:900;font-size:clamp(16px,2.6vw,24px)}
+.sub{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+.badge{
+  display:inline-block;margin-top:4px;
+  font-weight:900;font-size:12px;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);
+  color:var(--ink);
+}
+
+/* controls under logo */
+.ctrl{
+  max-width:1100px;margin:0 auto;
+  padding:0 12px 12px;
+  display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;
+}
+.toggle{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 12px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.32);
+  box-shadow:0 10px 20px rgba(0,0,0,.35);
+  color:var(--ink);font-weight:900;width:210px;
+}
+.switch{width:48px;height:26px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);position:relative}
+.switch i{
+  position:absolute; top:2px; left:2px;
+  width:20px;height:20px;border-radius:50%;
+  background:linear-gradient(180deg,#ffd1e7,var(--pink));
+  box-shadow:0 0 12px rgba(236,72,153,.22);
+  transition:.15s;
+}
+.switch.on{background:rgba(139,92,246,.18)}
+.switch.on i{left:26px}
+@media (max-width:560px){
+  .toggle{width:100%}
+  .sub{display:none}
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:14px 12px 28px}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+.hide{display:none!important}
+.center{text-align:center}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+
+.bigtitle{font-weight:900;font-size:clamp(22px,4vw,36px)}
+.tagline{color:var(--muted);font-size:clamp(15px,2.9vw,19px);line-height:1.65}
+.pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px}
+.pill{
+  padding:6px 10px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+  color:var(--ink);font-weight:900;font-size:12px;
+}
+
+.input{
+  display:flex;gap:10px;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  padding:10px 12px;border-radius:14px;
+  width:min(560px,96%);
+}
+.input input{flex:1;border:none;background:transparent;outline:none;color:var(--ink);font-size:18px;min-width:160px}
+
+.btn{
+  border:none; cursor:pointer;
+  padding:12px 14px;border-radius:14px;
+  font-weight:900; letter-spacing:.2px;
+  color:#fff;
+  background: linear-gradient(180deg, #f9a8d4, var(--pink));
+  box-shadow: 0 10px 0 rgba(236,72,153,.45), 0 18px 30px rgba(236,72,153,.16);
+  transform:translateY(0);
+  transition:.15s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(2px)}
+.btn.ghost{
+  background:rgba(10,10,15,.94);
+  color:var(--ink);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.btn.danger{
+  background:linear-gradient(180deg,#ffb4c0,#fb7185);
+  box-shadow: 0 10px 0 rgba(251,113,133,.45), 0 18px 30px rgba(251,113,133,.14);
+}
+.btn.small{padding:10px 12px;font-size:14px}
+
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:900px){ .levels{grid-template-columns:1fr;} }
+.level{
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+  background:linear-gradient(180deg, rgba(139,92,246,.10), rgba(17,17,34,.96));
+}
+.level h3{margin:0;font-weight:900;font-size:18px}
+.level .meta{margin-top:8px;color:var(--muted);font-weight:900;font-size:12px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+
+/* Game HUD */
+.hud{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:12px;border-bottom:1px dashed var(--line);
+  flex-wrap:wrap;
+}
+.pill2{
+  font-size:12px;color:var(--ink);font-weight:900;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  padding:7px 10px;border-radius:999px;
+}
+.progress{height:10px;background:rgba(255,255,255,.10);border-radius:999px;overflow:hidden;border:1px solid var(--line);margin:0 12px 12px}
+.progress>div{height:100%;width:0%;background:linear-gradient(90deg,var(--pink),#fb7185,var(--pink));}
+
+.stage{padding:12px}
+.qbox{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(180deg, rgba(139,92,246,.10), rgba(17,17,34,.96));
+  padding:14px;
+}
+.qprompt{text-align:center;font-weight:900;color:var(--ink);margin:0 0 8px}
+.qtext{text-align:center;font-weight:900;font-size:clamp(18px,3.2vw,28px);line-height:1.35;max-width:820px;margin:0 auto;}
+
+.build{
+  margin-top:14px;
+  border:1px dashed var(--line);
+  border-radius:16px;
+  background:rgba(10,10,15,.94);
+  padding:12px;
+  min-height:66px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  align-items:center;
+}
+.slot{
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  font-weight:900;
+}
+
+.slot.win{
+  animation: winPop .5s ease;
+  box-shadow:0 0 22px rgba(236,72,153,.45);
+}
+@keyframes winPop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.12)}
+  100%{transform:scale(1)}
+}
+
+.bank{
+  margin-top:14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+}
+.wordBtn{
+  border:1px solid var(--line);
+  background:rgba(10,10,15,.94);
+  color:var(--ink);
+  border-radius:999px;
+  padding:12px 14px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
+  transition:.12s;
+  font-size:18px;
+}
+.wordBtn:hover{transform:translateY(-1px)}
+.wordBtn.selected{
+  background:rgba(139,92,246,.18);
+  opacity:.65;
+}
+.wordBtn:disabled{cursor:not-allowed}
+
+.tools{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+.msg{margin-top:12px;display:flex;justify-content:center;}
+.msg span{
+  display:inline-block;
+  padding:10px 12px;border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(10,10,15,.94);
+  font-weight:900;
+}
+.ok{color:var(--ok)}
+.bad{color:var(--bad)}
+.explain{
+  margin-top:10px;
+  padding:12px 12px;border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(220,38,38,.06);
+  color:var(--bad);
+  font-weight:900;
+  line-height:1.6;
+  max-width:920px;
+}
+
+.confetti{position:fixed; left:0; top:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:65}
+.confetti i{position:absolute; width:8px; height:12px; opacity:.95; animation:fall 900ms linear forwards; box-shadow:0 0 10px rgba(236,72,153,.18)}
+@keyframes fall{ to{ transform:translateY(120vh) rotate(420deg); opacity:0 } }
+
+.sparkleLine{
+  height:2px;
+  background:linear-gradient(90deg, transparent, rgba(236,72,153,.72), transparent);
+  margin:0 12px 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="banner">
+    <div class="logo">∞</div>
+    <div class="brand">Infinite Learning Studio — <span style="color:var(--pink)">Present Perfect</span> • Sentence Builder</div>
+    <div class="sub">
+      Build step-by-step • have/has + V3 • 2 attempts per item<br/>
+      <span class="badge">Affirmative • Questions • Negative (20 per stage)</span>
+    </div>
+  </div>
+  <div class="ctrl">
+    <div class="toggle" onclick="toggleSparkle()">
+      <span>✨ Sparkle</span>
+      <div id="swSpark" class="switch on"><i></i></div>
+    </div>
+    <div class="toggle" onclick="toggleSound()">
+      <span>Sound FX</span>
+      <div id="swSound" class="switch on"><i></i></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="screenLogin" class="card" style="padding:18px;display:grid;gap:12px;justify-items:center;text-align:center">
+    <div class="bigtitle">MISSION: Present Perfect — Level Up!</div>
+    <div class="tagline">
+      This game has 3 stages: <b>Affirmative</b> • <b>Questions</b> • <b>Negative</b><br/>
+      Each item gives you word buttons plus 2–3 distractors. Tap to build the correct sentence.<br/>
+      If you're wrong: you get <b>one more try</b>. If you're wrong again, the <b>answer appears</b> and you can move on.
+    </div>
+    <div class="pills">
+      <div class="pill">20 items per stage</div>
+      <div class="pill">2–3 distractors</div>
+      <div class="pill">Undo last word</div>
+      <div class="pill">2 wrong tries → show answer</div>
+    </div>
+
+    <div class="card" style="width:min(920px,96%);padding:14px;background:rgba(255,255,255,.04)">
+      <div style="font-weight:900;color:var(--ink);font-size:18px">🎮 How to Play</div>
+      <div class="tagline" style="margin-top:8px;text-align:left">
+        1) Enter your name, then click <b>Go to Stage Select</b>.<br/>
+        2) Choose a stage: Affirmative / Questions / Negative.<br/>
+        3) Tap the word buttons to build the sentence.<br/>
+        4) Use <b>Undo</b> to remove the last word, or <b>Clear</b> to restart.<br/>
+        5) Click <b>Check</b> — wrong once = try again; wrong twice = the answer appears.<br/>
+        6) Finish a stage to see your score and return to Stage Select.
+      </div>
+    </div>
+
+    <div class="input">
+      <span style="font-weight:900">Name:</span>
+      <input id="playerName" placeholder="e.g., Emma / Alex / Sam"/>
+    </div>
+    <div class="row">
+      <button class="btn" onclick="enterLevels()">Go to Stage Select ▶</button>
+    </div>
+    <div class="note" style="color:var(--muted);font-size:12px">* Sound starts after your first click (browser rule).</div>
+  </div>
+
+  <div id="screenLevels" class="card hide" style="padding:18px">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
+      <div>
+        <div class="bigtitle" style="font-size:28px">Stage Select (Present Perfect)</div>
+        <div class="tagline">Player: <b id="whoLevels">-</b> • Choose a stage to practice</div>
+      </div>
+      <div class="row">
+        <button class="btn ghost" onclick="resetPlayer()">Change Player</button>
+      </div>
+    </div>
+
+    <div class="levels">
+      <div class="level">
+        <h3>Stage 1: Affirmative</h3>
+        <div class="meta">
+          <span class="chip">20 Item</span>
+          <span class="chip">Present Perfect</span>
+          <span class="chip">with distractors</span>
+        </div>
+        <div class="row" style="justify-content:flex-start;margin-top:10px">
+          <button class="btn" onclick="startStage('affirmative')">Start ▶</button>
+        </div>
+      </div>
+
+      <div class="level">
+        <h3>Stage 2: Questions (Have/Has)</h3>
+        <div class="meta">
+          <span class="chip">20 Item</span>
+          <span class="chip">Have/Has</span>
+          <span class="chip">with distractors</span>
+        </div>
+        <div class="row" style="justify-content:flex-start;margin-top:10px">
+          <button class="btn" onclick="startStage('interrogative')">Start ▶</button>
+        </div>
+      </div>
+
+      <div class="level">
+        <h3>Stage 3: Negative</h3>
+        <div class="meta">
+          <span class="chip">20 Item</span>
+          <span class="chip">haven't / hasn't</span>
+          <span class="chip">with distractors</span>
+        </div>
+        <div class="row" style="justify-content:flex-start;margin-top:10px">
+          <button class="btn" onclick="startStage('negative')">Start ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sparkleLine" id="sparkLine"></div>
+    <div class="tagline center" style="margin-top:6px">Tip: If it looks wrong, use <b>Undo</b> or <b>Clear</b> and try again ✨</div>
+  </div>
+
+  <div id="screenGame" class="card hide">
+    <div class="hud">
+      <div class="pill2">Stage: <b id="stageName">-</b></div>
+      <div class="pill2">Item <b id="step">1</b>/20</div>
+      <div class="pill2">Score <b id="score">0</b></div>
+      <div class="pill2">Player <b id="whoGame">-</b></div>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+
+    <div class="stage">
+      <div class="qbox">
+        <div class="qprompt" id="qPrompt">Build the sentence correctly</div>
+        <div id="qText" class="qtext">—</div>
+
+        <div class="build" id="build"></div>
+
+        <div class="tools">
+          <button class="btn ghost small" onclick="undoWord()">↩ Undo</button>
+          <button class="btn ghost small" onclick="resetBuild()">🧽 Clear</button>
+          <button class="btn small" onclick="checkAnswer()">Check ✓</button>
+        </div>
+
+        <div class="msg" id="msg"></div>
+        <div id="explain" class="explain hide"></div>
+
+        <div class="row" style="margin-top:12px">
+          <button class="btn ghost" onclick="backToLevels()">⬅ Back to Stage Select</button>
+          <button class="btn danger" id="nextBtn" onclick="nextQuestion()" disabled>Next ▶</button>
+        </div>
+
+        <div class="bank" id="bank"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="screenResult" class="card hide" style="padding:18px;display:grid;gap:12px;justify-items:center;text-align:center">
+    <div class="bigtitle" id="resultTitle">Stage Summary</div>
+    <div class="tagline">Stage: <b id="resultStage">-</b> • Player: <b id="resultWho">-</b></div>
+    <div class="card" style="width:min(820px,96%);padding:14px;background:rgba(255,255,255,.04)">
+      <div style="font-weight:900;font-size:18px">Score: <span style="color:var(--pink);font-size:26px" id="resultScore">0</span> / 20</div>
+      <div style="margin-top:8px;font-weight:900;color:#111" id="resultMsg">—</div>
+      <div class="tagline" style="margin-top:6px">Replay to build fluency ✨</div>
+    </div>
+    <div class="row">
+      <button class="btn" onclick="playAgain()">Play this stage again</button>
+      <button class="btn ghost" onclick="backToLevels()">Back to Stage Select</button>
+    </div>
+  </div>
+</div>
+
+<div id="fx" class="confetti hide"></div>
+
+<script>
+const DATA = {"affirmative": [{"tokens": ["I", "have", "finished", "my", "homework."], "distractors": ["has", "finish", "yesterday"], "pool": ["I", "have", "finished", "my", "homework.", "has", "finish", "yesterday"], "sentence": "I have finished my homework."}, {"tokens": ["You", "have", "eaten", "breakfast."], "distractors": ["has", "eat", "now"], "pool": ["You", "have", "eaten", "breakfast.", "has", "eat", "now"], "sentence": "You have eaten breakfast."}, {"tokens": ["We", "have", "visited", "the", "zoo."], "distractors": ["has", "visit", "last"], "pool": ["We", "have", "visited", "the", "zoo.", "has", "visit", "last"], "sentence": "We have visited the zoo."}, {"tokens": ["They", "have", "watched", "this", "movie."], "distractors": ["has", "watch", "yesterday"], "pool": ["They", "have", "watched", "this", "movie.", "has", "watch", "yesterday"], "sentence": "They have watched this movie."}, {"tokens": ["He", "has", "gone", "to", "school."], "distractors": ["have", "went", "yesterday"], "pool": ["He", "has", "gone", "to", "school.", "have", "went", "yesterday"], "sentence": "He has gone to school."}, {"tokens": ["She", "has", "done", "her", "homework."], "distractors": ["have", "did", "yesterday"], "pool": ["She", "has", "done", "her", "homework.", "have", "did", "yesterday"], "sentence": "She has done her homework."}, {"tokens": ["It", "has", "rained", "a", "lot."], "distractors": ["have", "rain", "yesterday"], "pool": ["It", "has", "rained", "a", "lot.", "have", "rain", "yesterday"], "sentence": "It has rained a lot."}, {"tokens": ["My", "dad", "has", "driven", "to", "work."], "distractors": ["have", "drove", "yesterday"], "pool": ["My", "dad", "has", "driven", "to", "work.", "have", "drove", "yesterday"], "sentence": "My dad has driven to work."}, {"tokens": ["My", "mom", "has", "taught", "math."], "distractors": ["have", "teach", "yesterday"], "pool": ["My", "mom", "has", "taught", "math.", "have", "teach", "yesterday"], "sentence": "My mom has taught math."}, {"tokens": ["The", "baby", "has", "slept", "well."], "distractors": ["have", "sleep", "now"], "pool": ["The", "baby", "has", "slept", "well.", "have", "sleep", "now"], "sentence": "The baby has slept well."}, {"tokens": ["Tom", "has", "written", "an", "email."], "distractors": ["have", "wrote", "yesterday"], "pool": ["Tom", "has", "written", "an", "email.", "have", "wrote", "yesterday"], "sentence": "Tom has written an email."}, {"tokens": ["Jane", "has", "listened", "to", "music."], "distractors": ["have", "listen", "now"], "pool": ["Jane", "has", "listened", "to", "music.", "have", "listen", "now"], "sentence": "Jane has listened to music."}, {"tokens": ["My", "brother", "has", "studied", "hard."], "distractors": ["have", "study", "yesterday"], "pool": ["My", "brother", "has", "studied", "hard.", "have", "study", "yesterday"], "sentence": "My brother has studied hard."}, {"tokens": ["The", "cat", "has", "drunk", "water."], "distractors": ["have", "drink", "now"], "pool": ["The", "cat", "has", "drunk", "water.", "have", "drink", "now"], "sentence": "The cat has drunk water."}, {"tokens": ["A", "bird", "has", "flown", "away."], "distractors": ["have", "flew", "yesterday"], "pool": ["A", "bird", "has", "flown", "away.", "have", "flew", "yesterday"], "sentence": "A bird has flown away."}, {"tokens": ["Kru", "Pai", "has", "helped", "students."], "distractors": ["have", "help", "yesterday"], "pool": ["Kru", "Pai", "has", "helped", "students.", "have", "help", "yesterday"], "sentence": "Kru Pai has helped students."}, {"tokens": ["Emma", "has", "drawn", "a", "picture."], "distractors": ["have", "drew", "yesterday"], "pool": ["Emma", "has", "drawn", "a", "picture.", "have", "drew", "yesterday"], "sentence": "Emma has drawn a picture."}, {"tokens": ["Aladin", "has", "fixed", "the", "computer."], "distractors": ["have", "fix", "now"], "pool": ["Aladin", "has", "fixed", "the", "computer.", "have", "fix", "now"], "sentence": "Aladin has fixed the computer."}, {"tokens": ["Our", "teacher", "has", "explained", "the", "lesson."], "distractors": ["have", "explain", "now"], "pool": ["Our", "teacher", "has", "explained", "the", "lesson.", "have", "explain", "now"], "sentence": "Our teacher has explained the lesson."}, {"tokens": ["My", "friend", "has", "swum", "today."], "distractors": ["have", "swam", "yesterday"], "pool": ["My", "friend", "has", "swum", "today.", "have", "swam", "yesterday"], "sentence": "My friend has swum today."}], "interrogative": [{"tokens": ["Have", "you", "finished", "your", "homework?"], "distractors": ["Do", "Have", "finished"], "pool": ["Have", "you", "finished", "your", "homework?", "Do", "Have", "finished"], "sentence": "Have you finished your homework?"}, {"tokens": ["Have", "they", "eaten", "breakfast?"], "distractors": ["Did", "Have", "ate"], "pool": ["Have", "they", "eaten", "breakfast?", "Did", "Have", "ate"], "sentence": "Have they eaten breakfast?"}, {"tokens": ["Have", "we", "visited", "the", "zoo?"], "distractors": ["Did", "Have", "visited"], "pool": ["Have", "we", "visited", "the", "zoo?", "Did", "Have", "visited"], "sentence": "Have we visited the zoo?"}, {"tokens": ["Have", "I", "done", "this", "correctly?"], "distractors": ["Do", "Has", "did"], "pool": ["Have", "I", "done", "this", "correctly?", "Do", "Has", "did"], "sentence": "Have I done this correctly?"}, {"tokens": ["Has", "he", "gone", "to", "school?"], "distractors": ["Have", "Did", "went"], "pool": ["Has", "he", "gone", "to", "school?", "Have", "Did", "went"], "sentence": "Has he gone to school?"}, {"tokens": ["Has", "she", "done", "her", "homework?"], "distractors": ["Have", "Did", "did"], "pool": ["Has", "she", "done", "her", "homework?", "Have", "Did", "did"], "sentence": "Has she done her homework?"}, {"tokens": ["Has", "it", "rained", "a", "lot?"], "distractors": ["Have", "Did", "rained"], "pool": ["Has", "it", "rained", "a", "lot?", "Have", "Did", "rained"], "sentence": "Has it rained a lot?"}, {"tokens": ["Has", "your", "dad", "driven", "to", "work?"], "distractors": ["Have", "Did", "drove"], "pool": ["Has", "your", "dad", "driven", "to", "work?", "Have", "Did", "drove"], "sentence": "Has your dad driven to work?"}, {"tokens": ["Has", "your", "mom", "taught", "math?"], "distractors": ["Have", "Did", "taught"], "pool": ["Has", "your", "mom", "taught", "math?", "Have", "Did", "taught"], "sentence": "Has your mom taught math?"}, {"tokens": ["Has", "the", "baby", "slept", "well?"], "distractors": ["Have", "Did", "slept"], "pool": ["Has", "the", "baby", "slept", "well?", "Have", "Did", "slept"], "sentence": "Has the baby slept well?"}, {"tokens": ["Has", "Tom", "written", "an", "email?"], "distractors": ["Have", "Did", "wrote"], "pool": ["Has", "Tom", "written", "an", "email?", "Have", "Did", "wrote"], "sentence": "Has Tom written an email?"}, {"tokens": ["Has", "Jane", "listened", "to", "music?"], "distractors": ["Have", "Did", "listened"], "pool": ["Has", "Jane", "listened", "to", "music?", "Have", "Did", "listened"], "sentence": "Has Jane listened to music?"}, {"tokens": ["Has", "your", "brother", "studied", "hard?"], "distractors": ["Have", "Did", "studied"], "pool": ["Has", "your", "brother", "studied", "hard?", "Have", "Did", "studied"], "sentence": "Has your brother studied hard?"}, {"tokens": ["Has", "the", "cat", "drunk", "water?"], "distractors": ["Have", "Did", "drank"], "pool": ["Has", "the", "cat", "drunk", "water?", "Have", "Did", "drank"], "sentence": "Has the cat drunk water?"}, {"tokens": ["Has", "a", "bird", "flown", "away?"], "distractors": ["Have", "Did", "flew"], "pool": ["Has", "a", "bird", "flown", "away?", "Have", "Did", "flew"], "sentence": "Has a bird flown away?"}, {"tokens": ["Has", "Kru", "Pai", "helped", "students?"], "distractors": ["Have", "Did", "helped"], "pool": ["Has", "Kru", "Pai", "helped", "students?", "Have", "Did", "helped"], "sentence": "Has Kru Pai helped students?"}, {"tokens": ["Has", "Emma", "drawn", "a", "picture?"], "distractors": ["Have", "Did", "drew"], "pool": ["Has", "Emma", "drawn", "a", "picture?", "Have", "Did", "drew"], "sentence": "Has Emma drawn a picture?"}, {"tokens": ["Has", "Aladin", "fixed", "the", "computer?"], "distractors": ["Have", "Did", "fixed"], "pool": ["Has", "Aladin", "fixed", "the", "computer?", "Have", "Did", "fixed"], "sentence": "Has Aladin fixed the computer?"}, {"tokens": ["Has", "our", "teacher", "explained", "the", "lesson?"], "distractors": ["Have", "Did", "explained"], "pool": ["Has", "our", "teacher", "explained", "the", "lesson?", "Have", "Did", "explained"], "sentence": "Has our teacher explained the lesson?"}, {"tokens": ["Has", "your", "friend", "swum", "today?"], "distractors": ["Have", "Did", "swam"], "pool": ["Has", "your", "friend", "swum", "today?", "Have", "Did", "swam"], "sentence": "Has your friend swum today?"}], "negative": [{"tokens": ["I", "have", "not", "finished", "yet."], "distractors": ["has", "not", "finish"], "pool": ["I", "have", "not", "finished", "yet.", "has", "not", "finish"], "sentence": "I have not finished yet."}, {"tokens": ["You", "have", "not", "eaten", "yet."], "distractors": ["has", "not", "ate"], "pool": ["You", "have", "not", "eaten", "yet.", "has", "not", "ate"], "sentence": "You have not eaten yet."}, {"tokens": ["We", "have", "not", "visited", "the", "zoo", "yet."], "distractors": ["has", "not", "visited"], "pool": ["We", "have", "not", "visited", "the", "zoo", "yet.", "has", "not", "visited"], "sentence": "We have not visited the zoo yet."}, {"tokens": ["They", "have", "not", "watched", "this", "movie", "yet."], "distractors": ["has", "not", "watched"], "pool": ["They", "have", "not", "watched", "this", "movie", "yet.", "has", "not", "watched"], "sentence": "They have not watched this movie yet."}, {"tokens": ["He", "has", "not", "gone", "yet."], "distractors": ["have", "not", "went"], "pool": ["He", "has", "not", "gone", "yet.", "have", "not", "went"], "sentence": "He has not gone yet."}, {"tokens": ["She", "has", "not", "done", "it", "yet."], "distractors": ["have", "not", "did"], "pool": ["She", "has", "not", "done", "it", "yet.", "have", "not", "did"], "sentence": "She has not done it yet."}, {"tokens": ["It", "has", "not", "rained", "yet."], "distractors": ["have", "not", "rained"], "pool": ["It", "has", "not", "rained", "yet.", "have", "not", "rained"], "sentence": "It has not rained yet."}, {"tokens": ["My", "dad", "has", "not", "driven", "yet."], "distractors": ["have", "not", "drove"], "pool": ["My", "dad", "has", "not", "driven", "yet.", "have", "not", "drove"], "sentence": "My dad has not driven yet."}, {"tokens": ["My", "mom", "has", "not", "taught", "yet."], "distractors": ["have", "not", "taught"], "pool": ["My", "mom", "has", "not", "taught", "yet.", "have", "not", "taught"], "sentence": "My mom has not taught yet."}, {"tokens": ["The", "baby", "has", "not", "slept", "yet."], "distractors": ["have", "not", "sleep"], "pool": ["The", "baby", "has", "not", "slept", "yet.", "have", "not", "sleep"], "sentence": "The baby has not slept yet."}, {"tokens": ["Tom", "has", "not", "written", "yet."], "distractors": ["have", "not", "wrote"], "pool": ["Tom", "has", "not", "written", "yet.", "have", "not", "wrote"], "sentence": "Tom has not written yet."}, {"tokens": ["Jane", "has", "not", "listened", "yet."], "distractors": ["have", "not", "listen"], "pool": ["Jane", "has", "not", "listened", "yet.", "have", "not", "listen"], "sentence": "Jane has not listened yet."}, {"tokens": ["My", "brother", "has", "not", "studied", "yet."], "distractors": ["have", "not", "study"], "pool": ["My", "brother", "has", "not", "studied", "yet.", "have", "not", "study"], "sentence": "My brother has not studied yet."}, {"tokens": ["The", "cat", "has", "not", "drunk", "yet."], "distractors": ["have", "not", "drink"], "pool": ["The", "cat", "has", "not", "drunk", "yet.", "have", "not", "drink"], "sentence": "The cat has not drunk yet."}, {"tokens": ["A", "bird", "has", "not", "flown", "yet."], "distractors": ["have", "not", "fly"], "pool": ["A", "bird", "has", "not", "flown", "yet.", "have", "not", "fly"], "sentence": "A bird has not flown yet."}, {"tokens": ["Kru", "Pai", "has", "not", "helped", "yet."], "distractors": ["have", "not", "help"], "pool": ["Kru", "Pai", "has", "not", "helped", "yet.", "have", "not", "help"], "sentence": "Kru Pai has not helped yet."}, {"tokens": ["Emma", "has", "not", "drawn", "yet."], "distractors": ["have", "not", "draw"], "pool": ["Emma", "has", "not", "drawn", "yet.", "have", "not", "draw"], "sentence": "Emma has not drawn yet."}, {"tokens": ["Aladin", "has", "not", "fixed", "it", "yet."], "distractors": ["have", "not", "fix"], "pool": ["Aladin", "has", "not", "fixed", "it", "yet.", "have", "not", "fix"], "sentence": "Aladin has not fixed it yet."}, {"tokens": ["Our", "teacher", "has", "not", "explained", "yet."], "distractors": ["have", "not", "explain"], "pool": ["Our", "teacher", "has", "not", "explained", "yet.", "have", "not", "explain"], "sentence": "Our teacher has not explained yet."}, {"tokens": ["My", "friend", "has", "not", "swum", "yet."], "distractors": ["have", "not", "swim"], "pool": ["My", "friend", "has", "not", "swum", "yet.", "have", "not", "swim"], "sentence": "My friend has not swum yet."}]};
+
+let player = "Player";
+let stageKey = null;
+let order = [];
+let qi = 0;
+let score = 0;
+let attempt = 0;
+let built = [];
+let pool = [];
+let soundOn = true;
+let sparkleOn = true;
+
+/* Sound FX */
+let ctx=null;
+function audioCtx(){ if(!ctx) ctx = new (window.AudioContext||window.webkitAudioContext)(); return ctx; }
+function beep(f=880, d=0.06, type='sine', gain=0.12){
+  if(!soundOn) return;
+  try{
+    const ac=audioCtx();
+    const o=ac.createOscillator(); const g=ac.createGain();
+    o.type=type; o.frequency.value=f;
+    g.gain.value=0.0001;
+    o.connect(g); g.connect(ac.destination);
+    const t=ac.currentTime;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(gain,t+0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+d);
+    o.start(t); o.stop(t+d+0.02);
+  }catch(e){}
+}
+function sClick(){ beep(1200,0.04,'square',0.09); }
+function sOk(){ beep(1400,0.07,'triangle',0.14); setTimeout(()=>beep(1800,0.05,'triangle',0.12),70); }
+function sBad(){ beep(220,0.10,'sawtooth',0.10); setTimeout(()=>beep(170,0.08,'sawtooth',0.09),70); }
+
+function sVictory(){
+  beep(1050,0.06,'triangle',0.12);
+  setTimeout(()=>beep(1350,0.06,'triangle',0.14),80);
+  setTimeout(()=>beep(1700,0.08,'triangle',0.16),160);
+}
+function bigWin(text='✨ PERFECT! ✨'){
+  const d = document.createElement('div');
+  d.style.position='fixed';
+  d.style.inset='0';
+  d.style.display='grid';
+  d.style.placeItems='center';
+  d.style.fontSize='clamp(32px,7vw,68px)';
+  d.style.fontWeight='900';
+  d.style.letterSpacing='.4px';
+  d.style.color='var(--pink2)';
+  d.style.textShadow='0 0 28px rgba(236,72,153,.45), 0 0 60px rgba(139,92,246,.30)';
+  d.style.zIndex='80';
+  d.style.pointerEvents='none';
+  d.textContent=text;
+  document.body.appendChild(d);
+  d.animate([{transform:'scale(.9)',opacity:0},{transform:'scale(1)',opacity:1},{transform:'scale(1.05)',opacity:1},{transform:'scale(1)',opacity:0}],{duration:900,easing:'ease-out'});
+  setTimeout(()=>d.remove(),900);
+}
+window.addEventListener('pointerdown', ()=>{ if(soundOn) audioCtx(); }, {once:true});
+
+function setSwitch(id,on){ document.getElementById(id).classList.toggle('on', on); }
+function toggleSound(){ soundOn=!soundOn; setSwitch('swSound', soundOn); sClick(); }
+function toggleSparkle(){ sparkleOn=!sparkleOn; setSwitch('swSpark', sparkleOn); document.getElementById('sparkLine').style.display = sparkleOn ? 'block':'none'; sClick(); }
+
+/* Screens */
+const S = {
+  login: document.getElementById('screenLogin'),
+  levels: document.getElementById('screenLevels'),
+  game: document.getElementById('screenGame'),
+  result: document.getElementById('screenResult')
+};
+function show(screen){ Object.values(S).forEach(x=>x.classList.add('hide')); S[screen].classList.remove('hide'); }
+
+/* Navigation */
+function enterLevels(){
+  sClick();
+  const name = (document.getElementById('playerName').value||"").trim();
+  player = name || "Player";
+  document.getElementById('whoLevels').textContent = player;
+  show('levels');
+}
+function resetPlayer(){ sClick(); show('login'); }
+function backToLevels(){ sClick(); show('levels'); }
+
+/* Confetti */
+function burst(){
+  const fx=document.getElementById('fx');
+  fx.classList.remove('hide');
+  fx.innerHTML="";
+  const colors=['#8b5cf6','#ec4899','#ddd6fe','#fbcfe8','#f9fafb'];
+  for(let k=0;k<28;k++){
+    const it=document.createElement('i');
+    it.style.left=(Math.random()*100)+'vw';
+    it.style.top='-10vh';
+    it.style.background=colors[k%colors.length];
+    it.style.animationDelay=(Math.random()*0.12)+'s';
+    fx.appendChild(it);
+  }
+  setTimeout(()=>{fx.classList.add('hide'); fx.innerHTML="";}, 1000);
+}
+
+/* Stage */
+function stageLabel(key){
+  if(key==='affirmative') return 'Affirmative';
+  if(key==='interrogative') return 'Questions';
+  return 'Negative';
+}
+
+function startStage(key){
+  sClick();
+  stageKey = key;
+  qi = 0; score = 0;
+  document.getElementById('whoGame').textContent = player;
+  document.getElementById('stageName').textContent = stageLabel(stageKey);
+  document.getElementById('score').textContent = score;
+
+  const n = DATA[stageKey].length;
+  order = Array.from({length:n}, (_,i)=>i);
+  for(let i=n-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  order = order.slice(0,20);
+
+  show('game');
+  loadQuestion();
+}
+
+function buildPool(item){
+  const poolTexts = item.pool.slice();
+  for(let i=poolTexts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [poolTexts[i],poolTexts[j]]=[poolTexts[j],poolTexts[i]]; }
+  return poolTexts.map((t,idx)=>({id:`w${idx}`, text:t}));
+}
+
+function loadQuestion(){
+  attempt = 0;
+  built = [];
+  document.getElementById('msg').innerHTML = "";
+  const ex = document.getElementById('explain'); ex.classList.add('hide'); ex.innerHTML="";
+  document.getElementById('nextBtn').disabled = true;
+
+  document.getElementById('step').textContent = (qi+1);
+  document.getElementById('bar').style.width = (qi/20*100) + "%";
+
+  document.getElementById('qText').textContent = "— Tap the words below toBuild the sentence correctly —";
+
+  const idx = order[qi];
+  const item = DATA[stageKey][idx];
+  pool = buildPool(item);
+
+  renderBuild();
+  renderBank();
+}
+
+function renderBuild(){
+  const el = document.getElementById('build');
+  el.innerHTML = "";
+  if(built.length===0){
+    const ghost=document.createElement('div');
+    ghost.className='slot';
+    ghost.style.opacity='.55';
+    ghost.textContent='(Your words appear here)';
+    el.appendChild(ghost);
+    return;
+  }
+  built.forEach(id=>{
+    const w = pool.find(x=>x.id===id);
+    const s=document.createElement('div');
+    s.className='slot';
+    s.textContent = w ? w.text : "";
+    el.appendChild(s);
+  });
+}
+
+function renderBank(){
+  const el = document.getElementById('bank');
+  el.innerHTML="";
+  const selected = new Set(built);
+  pool.forEach(w=>{
+    const b=document.createElement('button');
+    b.className='wordBtn' + (selected.has(w.id)?' selected':'');
+    b.textContent=w.text;
+    b.disabled = selected.has(w.id) || document.getElementById('nextBtn').disabled===false;
+    b.onclick = ()=>selectWord(w.id);
+    el.appendChild(b);
+  });
+}
+
+function selectWord(id){
+  sClick();
+  if(!document.getElementById('nextBtn').disabled) return;
+  built.push(id);
+  renderBuild();
+  renderBank();
+}
+
+function undoWord(){
+  sClick();
+  if(!document.getElementById('nextBtn').disabled) return;
+  built.pop();
+  renderBuild();
+  renderBank();
+}
+
+function resetBuild(){
+  sClick();
+  if(!document.getElementById('nextBtn').disabled) return;
+  built = [];
+  renderBuild();
+  renderBank();
+}
+
+function builtText(){
+  return built.map(id=> pool.find(x=>x.id===id)?.text || "").join(" ").trim();
+}
+
+function correctText(){
+  const item = DATA[stageKey][order[qi]];
+  return item.tokens.join(" ").trim();
+}
+
+function lockSolved(){
+  document.querySelectorAll('.wordBtn').forEach(b=>b.disabled=true);
+}
+
+function checkAnswer(){
+  sClick();
+  if(!document.getElementById('nextBtn').disabled) return;
+
+  const user = builtText();
+  const corr = correctText();
+  const msg = document.getElementById('msg');
+  const ex = document.getElementById('explain');
+
+  if(user === corr){
+    score++;
+    document.getElementById('score').textContent = score;
+    msg.innerHTML = `<span class="ok">Correct ✔ +1</span>`;
+    ex.classList.add('hide'); ex.innerHTML="";
+    document.getElementById('nextBtn').disabled = false;
+    lockSolved();
+    burst();
+    document.querySelectorAll('.slot').forEach(x=>x.classList.add('win'));
+    bigWin();
+    sVictory();
+    return;
+  }
+
+  attempt++;
+  if(attempt === 1){
+    msg.innerHTML = `<span class="bad">Not yet ❌ Try one more time</span>`;
+    sBad();
+  } else {
+    msg.innerHTML = `<span class="bad">Wrong again ❌ Here's the answer</span>`;
+    ex.classList.remove('hide');
+    ex.innerHTML = `<div><b>Answer:</b> ${corr}</div>`;
+    // (No auto-fill) Keep the student's build so they can compare with the answer below.
+
+    document.getElementById('nextBtn').disabled = false;
+    lockSolved();
+    sBad();
+  }
+}
+
+function nextQuestion(){
+  sClick();
+  if(document.getElementById('nextBtn').disabled) return;
+  qi++;
+  if(qi < 20){
+    loadQuestion();
+  } else {
+    endStage();
+  }
+}
+
+function endStage(){
+  document.getElementById('bar').style.width = "100%";
+  document.getElementById('resultStage').textContent = stageLabel(stageKey);
+  document.getElementById('resultWho').textContent = player;
+  document.getElementById('resultScore').textContent = score;
+  const msg = document.getElementById('resultMsg');
+  if(score>=16) msg.textContent = "Awesome! You're ready for the next level 🏆";
+  else if(score>=12) msg.textContent = "Great job! A bit more practice and you'll be perfect 💪";
+  else msg.textContent = "No worries — try again to get faster 🌿";
+  show('result');
+}
+
+function playAgain(){
+  sClick();
+  startStage(stageKey);
+}
+</script>
+</body>
+</html>
